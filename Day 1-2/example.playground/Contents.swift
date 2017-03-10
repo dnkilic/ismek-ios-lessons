@@ -1,5 +1,27 @@
 //: Playground - noun: a place where people can play
 
+
+var count : Int64 = 22
+var total : Int64 = 1
+for current in 1...count{
+    total = total  * current
+}
+
+print(total)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Person {
     var lucky: Bool = true
     var age: Int = 0
