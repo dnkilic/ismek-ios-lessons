@@ -25,10 +25,10 @@ class Movie {
 // init metodu? = Constructor
 // init metodları çağrılırken External parametre isimlerine ihtiyaç duyulur.
 
-var count = Int(10)
-var count2 = Int.init(5)
+var numberOld = Int(10)
+var numberNew = Int.init(5)
 
-var myMovie = Movie.init(title: "Esaretin bedeli", director: "dnkilic", releaseYear: 1999)
+var myMovie = Movie.init(title: "Esaretin Bedeli", director: "Frank Darabont", releaseYear: 1995)
 
 myMovie.title
 
@@ -46,10 +46,11 @@ class MovieArchive {
     }
     
     init(movies:[Movie]) {
-        // init metodunun parametre isimleri ile class'ın içerisindeki property isimlerini ayırabilmek için self keyword'ünü kullanıyoruz. Self keywordü burada class'ı ifade eder.
         self.movies = movies
     }
 }
+
+
 //: ### Stored properties & Initialization
 // Scroll up to see the Movie class!
 
@@ -68,9 +69,12 @@ var who = Int.init()
 who = Int()
 
 // initialization'dan daha önce bahsetmiştik
+
+
 var thursdayNightMovie = Movie(title:"Point Break", director:"Kathryn Bigelow", releaseYear: 1991)
 
 // initialize edilmiş bir nesnenin propertylerine aşağıdaki gibi ulaşılır
+
 thursdayNightMovie.director
 thursdayNightMovie.releaseYear
 thursdayNightMovie.title
@@ -105,8 +109,11 @@ class SoftwareLanguage {
 }
 
 // let ile tanımlanmış bir sabitin değeri değiştirilebilir mi?
-// var c = SoftwareLanguage.init(name : c)
+
+
+// var c = SoftwareLanguage.init(name : "c")
 // c.hardToLearn = false
+
 
 //: ### Type/Class properties & Computed Properties
 // Type property'leri Class şablonundan üretilmiş instance/object/nesne'lere göre değişiklik göstermez. Class'ın bütün instance'ları için aynı değeri tutar.
@@ -139,24 +146,43 @@ class KidsMovie {
     }
 }
 
+// Type Property'leri kullanmak için nesne üretmemize ihtiyaç yoktur
+
+
+KidsMovie.permittedRatings
+
 var fridayNightMovie = KidsMovie(title:"Princess Bride", director:"Rob Reiner", releaseYear: 1987, mpaaRating:"PG", reviewScores:[9, 9.5, 10, 9.5])
+
+// Nesne üretirsek bu propertyleri kullanamayız
+//fridayNightMovie.permittedRatings
+
+
 
 // .metaScore ifadesi aslında get metodunu çağırmamızı sağladı, peki diğer property'ler için get veya set metodları yazmadık, onları nasıl get/set edebiliyoruz?
 // CEVAP : Biz görmesek de onların da get/set metodları var!
+
 fridayNightMovie.metaScore
 
 //: ### Calling Instance Methods
 // Property'leri öğrendik, Şimdi Movie class'ına geri dönelim ve birkaç Rob Reiner filmi oluşturalım
+
+
 var princessBride = Movie(title: "The Princess Bride", director: "Rob Reiner", releaseYear: 1987)
 var spinalTap = Movie(title: "This is Spinal Tap", director: "Rob Reiner", releaseYear: 1984)
 var standByMe = Movie(title: "Stand By Me", director: "Rob Reiner", releaseYear:1986)
+
+
 // Oluşturduğumuz filmleri bir Array'de toplayalım
+
+
 var robReinerMovies = [princessBride, spinalTap, standByMe]
 
 // MovieArchive class'ından bir instance oluşturalım
+
 var myArchive = MovieArchive(movies: robReinerMovies)
 
 // Son olarak filterByYear metodunu çağıralım
+
 var movie = myArchive.filterByYear(1986)
 var firstMovie = movie[0]
 print("\(firstMovie.title)")
@@ -168,14 +194,17 @@ print("\(firstMovie.title)")
 // Type/class metodları instance oluşturulmadan çağrılabilir.
 
 //: ### Örnek bir Type Metodu
+
+
 UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary)
+
 
 //: Son olarak Access Modifiers'dan bahsedelim
 // public Class + App/Framework + World
 // Genelde Class'larımızın public olmasını isteriz
 
 // internal(Default) Class + App/Framework
-// Swift dilinde default access control modifier'ı internal'dir. Yani bir class, bir metod ayda bir değişken tanımlarken başına access modifier eklemezsek internal gibi davranır. internal öğeleri application içinde her yerden çağırmak mümkündür.
+// Swift dilinde default access control modifier'ı internal'dir. Yani bir class, bir metod yada bir değişken tanımlarken başına access modifier eklemezsek internal gibi davranır. internal öğeleri application içinde her yerden çağırmak mümkündür.
 
 // private Class
 // Bazı durumlarda Class'larımızın private olmasını isteriz
