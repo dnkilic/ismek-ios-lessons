@@ -10,7 +10,11 @@ import UIKit
 import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
+    @IBAction func translate(_ sender: Any) {
+    }
+    
     @IBOutlet weak var currentLocationLabel: UILabel!
+    @IBOutlet weak var allLocations: UITextView!
     
     let locationManager = CLLocationManager()
     
@@ -24,6 +28,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         if(currentLongtitude != 0.0 && currentLatitude != 0.0)
         {
+        
             var base = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
             base = base + "location=\(currentLatitude),\(currentLongtitude)"
             base = base + "&radius=5000"
@@ -32,7 +37,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             let urlString = URL(string: base)
 
             if let url = urlString {
-                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                let task = URLSession.shared.dataTask(with: url, completionHandler: {
+                    (data, response, error) in
                     if error != nil {
                         print("\(error)")
                     } else {
@@ -42,19 +48,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             
                             if let results = json["results"] as! [Any]?
                             {
+                                var result = ""
+                                
                                 for index in 0..<results.count {
                                     
                                     var obj = results[index] as! [String:Any]
                                     
                                     if let name = obj["name"]
                                     {
-                                        print(name)
+                                        result = "\(result)\n\(name)"
+                                        //print(name)
                                     }
                                 }
+                                
+                                DispatchQueue.main.async(execute: {
+                                    self.allLocations.text = result
+                                    /* Do UI work here */
+                                })
+                                
+                                
+                                
+                                //print(result)
                             }
                         }
                     }
-                }
+                })
                 task.resume()
             }
             
